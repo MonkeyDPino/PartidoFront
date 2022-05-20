@@ -8,6 +8,9 @@ function Navbar() {
             <li>
             <NavLink style={({isActive})=> ({color: isActive? "red":"blue"}) } to="/users">Users</NavLink>
             </li>
+            <li>
+            <NavLink style={({isActive})=> ({color: isActive? "red":"blue"}) } to="/login">Login</NavLink>
+            </li>
         </ul>
     </div> );
 }

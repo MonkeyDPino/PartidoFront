@@ -1,5 +1,6 @@
 import "./login.css";
-import React from "react";
+import {useState,useContext} from "react";
+import {AuthContext} from "../AuthProvider"
 import { Link, Navigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
@@ -13,41 +14,35 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 // Ventana de Login  HU_002
 
 function Login() {
-//   const [userLogin, changeLogin] = React.useState(false)
-//   const [values, setValues] = React.useState({
-//     email: "",
-//     password: "",
-//     showPassword: false,
-//   });
+  const [userLogin, changeLogin] = useState(null)
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    showPassword: false,
+  });
+  const {onLogin} = useContext(AuthContext)
 
-//   const loginApp = (event) => {
-//     console.log("Entrando")
-//     logUser(values.email, values.password).then(log => {
-//       if (log.response === "Ok") {
-//         console.log("Ok:", log.response)
-//         changeLogin(true)
-//       } else {
-//         console.log("Error:", log.response)
-//         //CODIGO DE MODAL QUE MUESTRE MENSAJE AL USUARIO
-//       }
-//     })
-//     event.preventDefault();
-//   };
+  const loginApp = (event) => {
+    event.preventDefault();
+    console.log("Entrando")
+    onLogin(values.email, values.password).then((response) => {
+      console.log(response)
+    })
+  };
 
-//   const handleChange = (prop) => (event) => {
-//     setValues({ ...values, [prop]: event.target.value });
-//   };
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
 
-//   const handleClickShowPassword = () => {
-//     setValues({
-//       ...values,
-//       showPassword: !values.showPassword,
-//     });
-//   };
-
-//   const handleMouseDownPassword = (event) => {
-//     event.preventDefault();
-//   };
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 //   if (userLogin) {
     // return <Navigate to="/MisProyectos" />
 //   } else {
@@ -63,10 +58,10 @@ function Login() {
                   <div className="input-container">
                     <TextField
                       id="login-email"
-                      label="Correo electrónico:"
+                      label="Correo"
                       fullWidth
                       autoComplete="off"
-                    //   onChange={}
+                      onChange={handleChange("email")}
                       margin="normal"
                     />
                   </div>
@@ -76,17 +71,23 @@ function Login() {
                   <div className="password-container">
                     <FormControl variant="outlined">
                       <InputLabel htmlFor="outlined-adornment-password">
-                        Password
+                        Contraseña
                       </InputLabel>
                       <OutlinedInput
                         id="outlined-adornment-password"
                         fullWidth
-                        // onChange={}
+                        type={values.showPassword ? 'text' : 'password'}
+                        value={values.password}
+                        onChange={handleChange("password")}
                         endAdornment={
                           <InputAdornment position="end">
                             <IconButton
                               aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
                             >
+                              {values.showPassword ? <VisibilityOff /> : <Visibility />}
                             </IconButton>
                           </InputAdornment>
                         }
@@ -98,7 +99,7 @@ function Login() {
                   {/* Botones */}
                   <div className="btn-container">
                     <div className="btn-login">
-                      <button> Iniciar sesión </button>
+                      <button onClick={loginApp}> Iniciar sesión </button>
                     </div>
                     <div className="btnRegistro">
                       <button className="btn-Registro">
