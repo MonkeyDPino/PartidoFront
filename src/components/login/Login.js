@@ -1,7 +1,7 @@
 import "./login.css";
-import {useState,useContext} from "react";
-import {AuthContext} from "../AuthProvider"
-import { Link, Navigate } from "react-router-dom";
+import {useState} from "react";
+import handleLogin from "../AuthProvider"
+import { Link, Navigate} from "react-router-dom";
 import { TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -15,18 +15,34 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 function Login() {
   const [userLogin, changeLogin] = useState(null)
+  const [errorMessage,setErrorMessage] = useState("")
   const [values, setValues] = useState({
     email: "",
     password: "",
     showPassword: false,
   });
-  const {onLogin} = useContext(AuthContext)
 
   const loginApp = (event) => {
     event.preventDefault();
     console.log("Entrando")
-    onLogin(values.email, values.password).then((response) => {
-      console.log(response)
+    handleLogin(values.email, values.password).then((response) => {
+      if (response.tokenInfo) {
+        const tokenInfo = response.tokenInfo
+        localStorage.setItem("rol", tokenInfo.rol);
+        localStorage.setItem("id", tokenInfo.id);
+        localStorage.setItem("exp", tokenInfo.exp);
+        localStorage.setItem("accessToken", response.accessToken);
+        window.logTimeout = setTimeout(() => {
+          localStorage.removeItem("id");
+          localStorage.removeItem("rol");
+          localStorage.removeItem("exp");
+          localStorage.removeItem("accessToken");
+        }, tokenInfo.exp * 1000 - tokenInfo.iat * 1000);
+        changeLogin(true)
+      }else{
+        changeLogin(false)
+        setErrorMessage(response.error)
+      }
     })
   };
 
@@ -43,11 +59,18 @@ function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-//   if (userLogin) {
-    // return <Navigate to="/MisProyectos" />
-//   } else {
+
+  const showError = ()=> {
+    if(userLogin === false && errorMessage){   
+      return <div className="error">{errorMessage}</div>
+    }
+  }
+
+  if (userLogin) {
+    return <Navigate to="/home" />
+  } else {
     return (
-      <>
+      <div className="back-login">
         <div>
           <div>
             <div className="login-form-container">
@@ -76,7 +99,7 @@ function Login() {
                       <OutlinedInput
                         id="outlined-adornment-password"
                         fullWidth
-                        type={values.showPassword ? 'text' : 'password'}
+                        type={values.showPassword ? "text" : "password"}
                         value={values.password}
                         onChange={handleChange("password")}
                         endAdornment={
@@ -87,7 +110,11 @@ function Login() {
                               onMouseDown={handleMouseDownPassword}
                               edge="end"
                             >
-                              {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                              {values.showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
                             </IconButton>
                           </InputAdornment>
                         }
@@ -95,17 +122,15 @@ function Login() {
                       />
                     </FormControl>
                   </div>
-
+                  {showError()}
                   {/* Botones */}
                   <div className="btn-container">
                     <div className="btn-login">
                       <button onClick={loginApp}> Iniciar sesión </button>
                     </div>
-                    <div className="btnRegistro">
-                      <button className="btn-Registro">
-                        <Link to="/Registro"> Registrarse </Link>
+                      <button className="btn-registro" >
+                        <Link to="/Registro">Registrarse</Link>
                       </button>
-                    </div>
                   </div>
                   <label>¿Olvidó su contraseña?</label>
                 </form>
@@ -113,9 +138,9 @@ function Login() {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
-//   }
+  }
 }
 
 export default Login;

@@ -4,11 +4,10 @@ import Home from "./components/Home"
 import Users from "./components/Users"
 import NotFound from "./components/NotFound"
 import Login from "./components/login/Login";
-import {AuthProvider} from "./components/AuthProvider";
+import React from 'react';
 
 function App() {
   return (
-    <AuthProvider>
       <BrowserRouter>
         <Routes>
           <Route path='*' element={<NotFound/>} />
@@ -18,7 +17,6 @@ function App() {
           <Route path="/login" element={<Login/>} />
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
   );
 }
 
