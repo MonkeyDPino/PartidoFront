@@ -26,4 +26,30 @@ const handleLogin = (email, password) => {
       return error.response.data;
     });
 };
-export default handleLogin
+
+const handleRegister = (nombre,email,contrasena) => {
+  var data = JSON.stringify({
+    "nombre": nombre,
+    "contrasena": contrasena,
+    "correo": email
+  });
+  
+  var config = {
+    method: 'post',
+    url: 'http://localhost:5000/api/auth/register',
+    headers: { 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  return axios(config)
+  .then(function (response) {
+    return response.data
+  })
+  .catch(function (error) {
+    return error.response.data;
+  });
+}
+
+export {handleLogin,handleRegister}

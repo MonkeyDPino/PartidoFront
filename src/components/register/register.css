@@ -1,0 +1,43 @@
+body .contenedor-registro {
+    margin: 0;
+    padding: 0;
+    /* background: url("/src/img/bgrd.jpg") no-repeat center top; */
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../../img/imagen_futbol.jpg');
+    background-position: center;
+  }
+  
+  .form-registro {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      justify-content: center;
+  }
+  .form-registro h1 {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .btn-registrarse{
+      display: flex;
+      justify-content:center;
+      margin-top: 10px;
+  }
+
+  .btn-registrarse button {
+      margin:auto;
+    width: 50%;
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #2c49a0;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 0px;
+    text-align: center;
+  }
+  

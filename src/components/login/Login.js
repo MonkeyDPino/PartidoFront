@@ -1,6 +1,6 @@
 import "./login.css";
 import {useState} from "react";
-import handleLogin from "../AuthProvider"
+import {handleLogin} from "../../modules/auth"
 import { Link, Navigate} from "react-router-dom";
 import { TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";

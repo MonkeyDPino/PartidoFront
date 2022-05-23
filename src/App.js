@@ -4,6 +4,7 @@ import Home from "./components/Home"
 import Users from "./components/Users"
 import NotFound from "./components/NotFound"
 import Login from "./components/login/Login";
+import Registro from "./components/register/register";
 import React from 'react';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/about" element={<About/>} />
           <Route path="/users" element={<Users/>} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Registro/>} />
         </Routes>
       </BrowserRouter>
   );
