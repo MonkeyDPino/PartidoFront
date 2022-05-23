@@ -39,7 +39,7 @@ function Registro() {
   }
 
   if (registered) {
-      return <Navigate to="/home" />
+      return <Navigate to="/login" />
   } else {
     return (
       <div className="contenedor-registro">

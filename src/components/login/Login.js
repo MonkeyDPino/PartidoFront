@@ -129,7 +129,7 @@ function Login() {
                       <button onClick={loginApp}> Iniciar sesión </button>
                     </div>
                       <button className="btn-registro" >
-                        <Link to="/Registro">Registrarse</Link>
+                        <Link to="/register">Registrarse</Link>
                       </button>
                   </div>
                   <label>¿Olvidó su contraseña?</label>
