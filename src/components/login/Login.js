@@ -67,7 +67,7 @@ function Login() {
   }
 
   if (userLogin) {
-    return <Navigate to="/home" />
+    return <Navigate to="/sidebar" />
   } else {
     return (
       <div className="back-login">

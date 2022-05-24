@@ -52,4 +52,10 @@ const handleRegister = (nombre,email,contrasena) => {
   });
 }
 
-export {handleLogin,handleRegister}
+const validateToken = (token) => {
+  const tokenInfo = jwt.decode(token, "partido")
+  if(!tokenInfo.rol) return false;
+  return true;
+}
+
+export {handleLogin,handleRegister,validateToken}
