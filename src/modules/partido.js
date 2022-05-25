@@ -25,5 +25,35 @@ const getPartidos = () =>{
       });
 }
 
+const addDato = (llave,valor,id) => {
+  const token = localStorage.getItem('accessToken')
+  if(!validateToken(token))return{
+      ok:false,
+      error:"token inválido"
+  }
+    var data = JSON.stringify({
+    "id": id,
+    "llave": llave,
+    "valor": valor
+  });  
+  var config = {
+    method: 'post',
+    url: 'http://localhost:5000/api/partido/dato',
+    headers: { 
+      'token': token, 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  return axios(config)
+  .then(function (response) {
+    return response.data
+  })
+  .catch(function (error) {
+    return error.response.data
+  });
+}
 
-export {getPartidos}
+
+export {getPartidos,addDato}

@@ -1,10 +1,12 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
+import {addDato} from "../../modules/partido"
 import "./partidoDatos.css";
 
-function PartidoDatos({ partido }) {
+function PartidoDatos({ partido,actualizarPartido }) {
   const [datos, setdatos] = useState(partido.datos ? partido.datos : []);
+  const [errorAdd, setErrorAdd] = useState(null);
   const [values, setValues] = useState({
     llave: "",
     valor: "",
@@ -22,6 +24,29 @@ function PartidoDatos({ partido }) {
     console.log(event.target.value);
     setValues({ ...values, [event.target.name]: event.target.value });
   };
+
+  const handleAdd = () => {
+    addDato(values.llave, values.valor, partido._id)
+    .then((response)=>{
+      if(response.acknowledged){
+        actualizarPartido();
+        setErrorAdd(false)
+      }else{
+        setErrorAdd(true)
+      }
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+      setErrorAdd(true)
+    })
+  }
+
+  const showError = ()=> {
+    if(errorAdd){   
+      return <div className="error">Error al agregar dato</div>
+    }
+  }
 
   return (
     <div className="partidoDatos-container">
@@ -70,8 +95,9 @@ function PartidoDatos({ partido }) {
           />
         </div>
       </div>
+      {showError()}
       <div className="btn-datos">
-          <button> Añadir </button>
+          <button onClick={handleAdd}> Añadir </button>
         </div>
     </div>
   );
