@@ -6,7 +6,6 @@ import "./sidebar.css";
 
 function Sidebar({children,rol}) {
   const [showResSideBar, setResShowSideBar] = React.useState(false)
-  // const [rol, setRol] = React.useState(localStorage.getItem('rol'))
 
 
   const ResSideBar = ()=>{

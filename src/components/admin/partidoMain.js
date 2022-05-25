@@ -19,7 +19,7 @@ function PartidoMain() {
     } else {
       partidos
         .then((res) => {
-          console.log(res);
+          if(res.error == "token is not valid")navigate("/login");
           res.map((partido) => {
             // if(partido.estado === "Creado" || partido.estado === "EquiposGenerados"){
             //     setPartido(partido)
@@ -45,10 +45,10 @@ function PartidoMain() {
   }
 
   return (
-    <>
+    <div>
     {showError()}
       <PartidoDatos partido={partido} setPartido={setPartido} actualizarPartido={actualizarPartido} />
-    </>
+    </div>
   );
 }
 
