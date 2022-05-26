@@ -28,7 +28,6 @@ function PartidoDatos({ partido, setPartido, actualizarPartido }) {
   ];
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
@@ -91,7 +90,6 @@ function PartidoDatos({ partido, setPartido, actualizarPartido }) {
               checkboxSelection
               ColumnWidth="Auto"
               onSelectionModelChange={(newSelectionModel) => {
-                console.log(newSelectionModel);
                 setSelectionModel(newSelectionModel);
               }}
               selectionModel={selectionModel}
