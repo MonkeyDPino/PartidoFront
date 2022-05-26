@@ -2,7 +2,8 @@ import { getPartidos } from "../../modules/partido";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PartidoDatos from "./partidoDatos";
-import PartidoLista from "./partidoLista"
+import PartidoLista from "./partidoLista";
+import PartidoEquipos from "./partidoEquipos";
 
 function PartidoMain() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function PartidoMain() {
     } else {
       partidos
         .then((res) => {
-          if (res.error == "token is not valid") navigate("/login");
+          if (res.error === "token is not valid") navigate("/login");
           res.map((partido) => {
             if (
               partido.estado === "Creado" ||
@@ -50,6 +51,10 @@ function PartidoMain() {
           actualizarPartido={actualizarPartido}
         />
         <PartidoLista
+        partido={partido}
+        setPartido={setPartido}
+        actualizarPartido={actualizarPartido}/>
+        <PartidoEquipos
         partido={partido}
         setPartido={setPartido}
         actualizarPartido={actualizarPartido}/>

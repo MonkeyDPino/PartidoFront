@@ -28,7 +28,7 @@ const getPartidos = () => {
 
 const addDato = (llave, valor, id) => {
   const token = localStorage.getItem("accessToken");
-  
+
   var data = JSON.stringify({
     id: id,
     llave: llave,
@@ -158,6 +158,34 @@ const AddaLista = (idPartido, idJugador) => {
       return error.response.data;
     });
 };
+
+const GenEquipos = (idPartido, Criterio, Algoritmo) => {
+  const token = localStorage.getItem("accessToken");
+
+  var data = JSON.stringify({
+    id: idPartido,
+    criterio: Criterio,
+    algoritmo: Algoritmo,
+  });
+
+  var config = {
+    method: "post",
+    url: "http://localhost:5000/api/partido/equipos",
+    headers: {
+      token: token,
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+
+  return axios(config)
+    .then(function (response) {
+      return response.data
+    })
+    .catch(function (error) {
+      return error.response.data
+    });
+};
 export {
   getPartidos,
   addDato,
@@ -165,4 +193,5 @@ export {
   createLista,
   deleteDeLista,
   AddaLista,
+  GenEquipos
 };

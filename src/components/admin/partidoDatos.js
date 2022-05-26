@@ -32,39 +32,47 @@ function PartidoDatos({ partido, setPartido, actualizarPartido }) {
   };
 
   const handleAdd = () => {
+    setValues({
+      llave: "",
+      valor: "",
+    });
     addDato(values.llave, values.valor, partido._id)
       .then((response) => {
         if (response.acknowledged) {
           actualizarPartido();
           setErrorAdd(false);
         } else {
-          if(response.error == "token is not valid")navigate("/login");
+          if (response.error === "token is not valid") navigate("/login");
           setErrorAdd(true);
         }
         console.log(response);
       })
       .catch((error) => {
-        if(error.error == "token is not valid")navigate("/login");
+        if (error.error === "token is not valid") navigate("/login");
         console.log(error);
         setErrorAdd(true);
       });
   };
 
   const handleDelete = () => {
+    setValues({
+      llave: "",
+      valor: "",
+    });
     deleteDato(partido._id, selectionModel)
       .then((response) => {
         if (response._id) {
           setPartido(response);
           setErrorDelete(false);
         } else {
-          if(response.error == "token is not valid")navigate("/login");
-          console.log("Error",response);
+          if (response.error === "token is not valid") navigate("/login");
+          console.log("Error", response);
           setErrorDelete(true);
         }
       })
       .catch((error) => {
         console.log("Error", error);
-        if(error.error == "token is not valid")navigate("/login");
+        if (error.error === "token is not valid") navigate("/login");
         setErrorDelete(true);
       });
   };

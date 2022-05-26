@@ -58,11 +58,13 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
         .catch((err) => {
           console.log(err);
           if (err.error === "token is not valid") navigate("/login");
-          setErrorGetting(false);
+          setErrorGetting(true);
         });
     } else {
       setLista([]);
     }
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [partido]);
 
   useEffect(() => {
@@ -85,8 +87,10 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
       .catch((err) => {
         console.log(err);
         if (err.error === "token is not valid") navigate("/login");
-        setErrorGetting(false);
+        setErrorGetting(true);
       });
+      
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lista]);
 
   const handleCreate = () => {
@@ -117,9 +121,10 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
       return <div className="error">Error al eliminar jugador de lista</div>;
     }
   };
+  
   const showErrorAdding = () => {
     if (errorAdding) {
-      return <div className="error">Error al agregar jugador a lista</div>;
+      return <div className="error">Error al agregar jugador a lista (max 10 jugadores)</div>;
     }
   };
 
@@ -231,7 +236,7 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
       })
       .catch((err) => {
         if (err.error === "token is not valid") navigate("/login");
-        setErrorDelete(false);
+        setErrorDelete(true);
       });
   };
 
@@ -247,7 +252,7 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
     })
     .catch((err) => {
       if (err.error === "token is not valid") navigate("/login");
-      setErrorAdding(false);
+      setErrorAdding(true);
     });
   };
 
