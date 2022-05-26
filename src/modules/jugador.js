@@ -3,11 +3,6 @@ import { validateToken } from "./auth";
 
 const getJugadores = (ids) => {
   const token = localStorage.getItem("accessToken");
-  if (!validateToken(token))
-    return {
-      ok: false,
-      error: "token inválido",
-    };
 
   var data = {
     ids: ids,
@@ -34,11 +29,6 @@ const getJugadores = (ids) => {
 
 const getJugadoresNotIn = (ids) => {
   const token = localStorage.getItem("accessToken");
-  if (!validateToken(token))
-    return {
-      ok: false,
-      error: "token inválido",
-    };
 
   var data = {
     ids: ids,

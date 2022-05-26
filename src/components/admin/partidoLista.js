@@ -1,17 +1,33 @@
 import { useEffect, useState } from "react";
 import "./partidoLista.css";
-import { createLista,deleteDeLista } from "../../modules/partido";
-import { getJugadores,getJugadoresNotIn } from "../../modules/jugador";
+import { createLista, deleteDeLista, AddaLista } from "../../modules/partido";
+import { getJugadores, getJugadoresNotIn } from "../../modules/jugador";
 import { useNavigate } from "react-router-dom";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { styled } from '@mui/material/styles';
+
+const ListaRow = styled(TableRow)`
+  background-color: #9EFC95;
+`;
+const ListaHeadRow = styled(TableRow)`
+  background-color: #27D616;
+`;
+const OutHeadRow = styled(TableRow)`
+  background-color: #FF5B5B;
+`;
+const OutRow = styled(TableRow)`
+  background-color: #FF8A8A;
+`;
+
 
 function PartidoLista({ partido, setPartido, actualizarPartido }) {
   const navigate = useNavigate();
@@ -20,70 +36,73 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
   const [errorCreate, setErrorCreate] = useState(null);
   const [errorGetting, setErrorGetting] = useState(null);
   const [errorDelete, setErrorDelete] = useState(null);
+  const [errorAdding, setErrorAdding] = useState(null);
 
   useEffect(() => {
-    console.log("lista", lista);
-    if (partido.lista && partido.lista.length > 0){
-      const ids = []
-      partido.lista.map(user => {
-        ids.push(user.id)
-      })
+    if (partido.lista && partido.lista.length > 0) {
+      const ids = [];
+      partido.lista.map((user) => {
+        ids.push(user.id);
+        return user;
+      });
       getJugadores(ids)
-      .then(response =>{
-        if(response.error == "token is not valid") navigate("/login")
-        if(!response.error && typeof response != "string"){
-          setLista(response)
-          setErrorGetting(false)
-        }else{
-          setErrorGetting(true)
-        }
-      })
-      .catch(err =>{
-        console.log(err)
-        setErrorGetting(false)
-      })
-    }else{
-      setLista([])
+        .then((response) => {
+          if (response.error === "token is not valid") navigate("/login");
+          if (!response.error && typeof response != "string") {
+            setLista(response);
+            setErrorGetting(false);
+          } else {
+            setErrorGetting(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.error === "token is not valid") navigate("/login");
+          setErrorGetting(false);
+        });
+    } else {
+      setLista([]);
     }
   }, [partido]);
 
   useEffect(() => {
-    if(lista.length <= 0){
-      setPlayersOut([])
-      return
+    if (lista.length <= 0) {
+      setPlayersOut([]);
+      return;
     }
 
     const listaIds = lista.map((user) => user._id);
     getJugadoresNotIn(listaIds)
-    .then(response =>{
-      if(response.error == "token is not valid") navigate("/login")
-      if(!response.error && typeof response != "string"){
-        setPlayersOut(response)
-        setErrorGetting(false)
-      }else{
-        setErrorGetting(true)
-      }
-    })
-    .catch(err =>{
-      console.log(err)
-      setErrorGetting(false)
-    })
+      .then((response) => {
+        if (response.error === "token is not valid") navigate("/login");
+        if (!response.error && typeof response != "string") {
+          setPlayersOut(response);
+          setErrorGetting(false);
+        } else {
+          setErrorGetting(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.error === "token is not valid") navigate("/login");
+        setErrorGetting(false);
+      });
   }, [lista]);
 
   const handleCreate = () => {
     createLista(partido._id)
       .then((res) => {
         if (res.partidoActualizado) {
-          setPartido(res.partidoActualizado)
+          setPartido(res.partidoActualizado);
           setErrorCreate(false);
         } else {
           setErrorCreate(true);
-          if (res.error == "token is not valid") navigate("/login");
+          if (res.error === "token is not valid") navigate("/login");
         }
       })
       .catch((err) => {
         setErrorCreate(true);
-        if (err.error == "token is not valid") navigate("/login");
+        if (err.error === "token is not valid") navigate("/login");
       });
   };
 
@@ -98,6 +117,11 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
       return <div className="error">Error al eliminar jugador de lista</div>;
     }
   };
+  const showErrorAdding = () => {
+    if (errorAdding) {
+      return <div className="error">Error al agregar jugador a lista</div>;
+    }
+  };
 
   const listTable = () => {
     return (
@@ -107,24 +131,25 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} size="small" aria-label="simple table">
             <TableHead>
-              <TableRow>
+              <ListaHeadRow>
                 <TableCell>Quitar</TableCell>
                 <TableCell>Nombre</TableCell>
                 <TableCell align="right">Correo</TableCell>
                 <TableCell align="right">Promedio Global</TableCell>
                 <TableCell align="right">Promedio Ultimo Partido</TableCell>
                 <TableCell align="right">Tipo</TableCell>
-              </TableRow>
+              </ListaHeadRow>
             </TableHead>
             <TableBody>
               {lista.map((user) => (
-                <TableRow
+                <ListaRow
+                  className="lista-Row"
                   key={user._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell>
                     <Button
-                      onClick={()=>handleDelete(user._id)}
+                      onClick={() => handleDelete(user._id)}
                       className="deleteButton"
                       variant="outlined"
                       startIcon={<DeleteIcon />}
@@ -137,7 +162,7 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
                   <TableCell align="right">{user.promedioGlobal}</TableCell>
                   <TableCell align="right">{user.promedioLastMatch}</TableCell>
                   <TableCell align="right">{user.tipo}</TableCell>
-                </TableRow>
+                </ListaRow>
               ))}
             </TableBody>
           </Table>
@@ -150,24 +175,33 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
     return (
       <div className="list-container">
         <h4>Lista de jugadores para agregar al partido</h4>
+        {showErrorAdding()}
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} size="small" aria-label="simple table">
             <TableHead>
-              <TableRow>
+              <OutHeadRow>
+                <TableCell>Agregar</TableCell>
                 <TableCell>Nombre</TableCell>
                 <TableCell align="right">Correo</TableCell>
                 <TableCell align="right">Promedio Global</TableCell>
                 <TableCell align="right">Promedio Ultimo Partido</TableCell>
                 <TableCell align="right">Tipo</TableCell>
-                <TableCell align="right">Agregar</TableCell>
-              </TableRow>
+              </OutHeadRow>
             </TableHead>
             <TableBody>
               {playersOut.map((user) => (
-                <TableRow
+                <OutRow
                   key={user._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
+                  <TableCell>
+                    <Button
+                      onClick={() => handleAdd(user._id)}
+                      className="deleteButton"
+                      variant="outlined"
+                      startIcon={<ArrowDownwardIcon />}
+                    />
+                  </TableCell>
                   <TableCell component="th" scope="row">
                     {user.nombre}
                   </TableCell>
@@ -175,7 +209,7 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
                   <TableCell align="right">{user.promedioGlobal}</TableCell>
                   <TableCell align="right">{user.promedioLastMatch}</TableCell>
                   <TableCell align="right">{user.tipo}</TableCell>
-                </TableRow>
+                </OutRow>
               ))}
             </TableBody>
           </Table>
@@ -185,21 +219,37 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
   };
 
   const handleDelete = (idJugador) => {
-    deleteDeLista(partido._id,idJugador)
-    .then(response =>{
-      if(response.error == "token is not valid") navigate("/login")
-      if(!response.error && typeof response != "string" && response._id){
-        actualizarPartido()
-        setErrorDelete(false)
-      }else{
-        setErrorDelete(true)
+    deleteDeLista(partido._id, idJugador)
+      .then((response) => {
+        if (response.error === "token is not valid") navigate("/login");
+        if (!response.error && typeof response != "string" && response._id) {
+          actualizarPartido();
+          setErrorDelete(false);
+        } else {
+          setErrorDelete(true);
+        }
+      })
+      .catch((err) => {
+        if (err.error === "token is not valid") navigate("/login");
+        setErrorDelete(false);
+      });
+  };
+
+  const handleAdd = (idJugador) => {
+    AddaLista(partido._id, idJugador).then((response) => {
+      if (response.error === "token is not valid") navigate("/login");
+      if (!response.error && typeof response != "string" && response._id) {
+        actualizarPartido();
+        setErrorAdding(false);
+      } else {
+        setErrorAdding(true);
       }
     })
-    .catch(err =>{
-      console.log(err)
-      setErrorDelete(false)
-    })
-  }
+    .catch((err) => {
+      if (err.error === "token is not valid") navigate("/login");
+      setErrorAdding(false);
+    });
+  };
 
   if (errorGetting) {
     return (
@@ -219,7 +269,10 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
           {showErrorCreate()}
         </>
       ) : partido._id ? (
-        <>{OutTable()}{listTable()}</>
+        <>
+          {OutTable()}
+          {listTable()}
+        </>
       ) : (
         <></>
       )}
@@ -228,6 +281,3 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
 }
 
 export default PartidoLista;
-
-
-
