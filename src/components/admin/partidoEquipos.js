@@ -142,7 +142,7 @@ function PartidoEquipos({ partido, setPartido}) {
     );
   }
 
-  if (partido.lista.length == 0) {
+  if (partido.lista && partido.lista.length == 0) {
     return <></>
   }
 

@@ -8,7 +8,11 @@ import PartidoOptions from "./partidoOptions";
 
 function PartidoMain() {
   const navigate = useNavigate();
-  const [partido, setPartido] = useState({});
+  const [partido, setPartido] = useState({
+    fecha:"",
+    lugar:"",
+    estado:""
+  });
   const [errorPartido, setErrorPartido] = useState(null);
 
   useEffect(() => {
@@ -16,6 +20,7 @@ function PartidoMain() {
   }, []);
 
   const actualizarPartido = () => {
+    let capturado = false;
     const partidos = getPartidos();
     if (partidos.error) {
       navigate("/login");
@@ -28,11 +33,14 @@ function PartidoMain() {
               partido.estado === "Creado" ||
               partido.estado === "EquiposGenerados"
             ) {
+              
+    capturado = true;
               setPartido(partido);
               setErrorPartido(false);
             }
             return partido;
           });
+          if(!capturado)navigate("/create");
         })
         .catch((err) => {
           setErrorPartido(true);
@@ -46,6 +54,12 @@ function PartidoMain() {
   }else{
     return (
       <div>
+        <h2>Partido Dashboard</h2>
+        <div className="dataShow">
+          <h4 className="dataField">{"Fecha:\t"+partido.fecha}</h4>
+          <h4 className="dataField">{"Lugar:"+partido.lugar}</h4>
+          <h4 className="dataField">{"Estado:"+partido.estado}</h4>
+        </div>
         <PartidoDatos
           partido={partido}
           setPartido={setPartido}
