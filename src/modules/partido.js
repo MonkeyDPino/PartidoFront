@@ -239,6 +239,54 @@ const confirmPartido= (idPartido) =>{
   });
 }
 
+const createPartido= (fecha,lugar) =>{
+  const token = localStorage.getItem("accessToken");
+
+  var data = JSON.stringify({
+    "fecha": fecha,
+    "lugar": lugar
+  });
+  
+  var config = {
+    method: 'post',
+    url: 'http://localhost:5000/api/partido',
+    headers: { 
+      'token': token, 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  return axios(config)
+  .then(function (response) {
+    return response.data
+  })
+  .catch(function (error) {
+    return error.response.data
+  });
+}
+
+const getPartidosJug = (idJugador)=>{
+  const token = localStorage.getItem("accessToken");
+
+  var config = {
+    method: 'get',
+    url: 'http://localhost:5000/api/partido/partido/'+idJugador,
+    headers: { 
+      'token': token,
+      'Content-Type': 'application/json'
+    }
+  };
+  
+  return axios(config)
+  .then(function (response) {
+    return response.data
+  })
+  .catch(function (error) {
+    return error.response.data
+  });
+}
+
 export {
   getPartidos,
   addDato,
@@ -248,5 +296,7 @@ export {
   AddaLista,
   GenEquipos,
   cancelPartido,
-  confirmPartido
+  confirmPartido,
+  createPartido,
+  getPartidosJug
 };

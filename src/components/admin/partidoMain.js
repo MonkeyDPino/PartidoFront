@@ -9,9 +9,9 @@ import PartidoOptions from "./partidoOptions";
 function PartidoMain() {
   const navigate = useNavigate();
   const [partido, setPartido] = useState({
-    fecha:"",
-    lugar:"",
-    estado:""
+    fecha: "",
+    lugar: "",
+    estado: "",
   });
   const [errorPartido, setErrorPartido] = useState(null);
 
@@ -27,20 +27,22 @@ function PartidoMain() {
     } else {
       partidos
         .then((res) => {
-          if (res.error === "token is not valid") navigate("/login");
+          if (res.error === "token is not valid") {
+            navigate("/login");
+            console.log("navigate");
+          }
           res.map((partido) => {
             if (
               partido.estado === "Creado" ||
               partido.estado === "EquiposGenerados"
             ) {
-              
-    capturado = true;
+              capturado = true;
               setPartido(partido);
               setErrorPartido(false);
             }
             return partido;
           });
-          if(!capturado)navigate("/create");
+          if (!capturado) navigate("/create");
         })
         .catch((err) => {
           setErrorPartido(true);
@@ -50,15 +52,19 @@ function PartidoMain() {
   };
 
   if (errorPartido) {
-    return <div><div className="error">Error al capturar partido</div></div>
-  }else{
+    return (
+      <div>
+        <div className="error">Error al capturar partido</div>
+      </div>
+    );
+  } else {
     return (
       <div>
         <h2>Partido Dashboard</h2>
         <div className="dataShow">
-          <h4 className="dataField">{"Fecha:\t"+partido.fecha}</h4>
-          <h4 className="dataField">{"Lugar:"+partido.lugar}</h4>
-          <h4 className="dataField">{"Estado:"+partido.estado}</h4>
+          <h4 className="dataField">{"Fecha:\t" + partido.fecha}</h4>
+          <h4 className="dataField">{"Lugar:" + partido.lugar}</h4>
+          <h4 className="dataField">{"Estado:" + partido.estado}</h4>
         </div>
         <PartidoDatos
           partido={partido}
@@ -66,22 +72,23 @@ function PartidoMain() {
           actualizarPartido={actualizarPartido}
         />
         <PartidoLista
-        partido={partido}
-        setPartido={setPartido}
-        actualizarPartido={actualizarPartido}/>
+          partido={partido}
+          setPartido={setPartido}
+          actualizarPartido={actualizarPartido}
+        />
         <PartidoEquipos
-        partido={partido}
-        setPartido={setPartido}
-        actualizarPartido={actualizarPartido}/>
+          partido={partido}
+          setPartido={setPartido}
+          actualizarPartido={actualizarPartido}
+        />
         <PartidoOptions
-        partido={partido}
-        setPartido={setPartido}
-        actualizarPartido={actualizarPartido}
+          partido={partido}
+          setPartido={setPartido}
+          actualizarPartido={actualizarPartido}
         />
       </div>
     );
   }
-  
 }
 
 export default PartidoMain;

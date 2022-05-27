@@ -5,6 +5,7 @@ import Registro from "./components/register/register";
 import Sidebar from "./components/sidebar/sidebar";
 import PartidoMain from "./components/admin/partidoMain"
 import PartidoCreate from "./components/admin/partidoCreate";
+import Calificaciones from "./components/calificaciones/calificaciones";
 import React from 'react';
 
 function App() {
@@ -15,8 +16,9 @@ function App() {
           <Route path="/" element={<><Sidebar rol="Administrador"><PartidoMain/></Sidebar></>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Registro/>} />
-          <Route path="/sidebar" element={<><Sidebar rol="Administrador"><PartidoMain/></Sidebar></>} />
+          <Route path="/dashboard" element={<><Sidebar rol="Administrador"><PartidoMain/></Sidebar></>} />
           <Route path="/create" element={<><Sidebar rol="Administrador"><PartidoCreate/></Sidebar></>} />
+          <Route path="/calificacion" element={<><Sidebar rol="Administrador"><Calificaciones/></Sidebar></>} />
         </Routes>
       </BrowserRouter>
   );
