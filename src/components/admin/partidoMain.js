@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import PartidoDatos from "./partidoDatos";
 import PartidoLista from "./partidoLista";
 import PartidoEquipos from "./partidoEquipos";
+import PartidoOptions from "./partidoOptions";
 
 function PartidoMain() {
   const navigate = useNavigate();
@@ -58,6 +59,11 @@ function PartidoMain() {
         partido={partido}
         setPartido={setPartido}
         actualizarPartido={actualizarPartido}/>
+        <PartidoOptions
+        partido={partido}
+        setPartido={setPartido}
+        actualizarPartido={actualizarPartido}
+        />
       </div>
     );
   }

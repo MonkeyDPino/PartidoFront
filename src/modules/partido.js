@@ -186,6 +186,59 @@ const GenEquipos = (idPartido, Criterio, Algoritmo) => {
       return error.response.data
     });
 };
+
+const cancelPartido= (idPartido) =>{
+  const token = localStorage.getItem("accessToken");
+
+  var data = JSON.stringify({
+    "id": idPartido
+  });
+  
+  var config = {
+    method: 'delete',
+    url: 'http://localhost:5000/api/partido',
+    headers: { 
+      'token': token, 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  return axios(config)
+  .then(function (response) {
+    return response.data
+  })
+  .catch(function (error) {
+    return error.response.data
+  });
+}
+
+const confirmPartido= (idPartido) =>{
+  const token = localStorage.getItem("accessToken");
+
+  var data = JSON.stringify({
+    "id": idPartido
+  });
+  
+  var config = {
+    method: 'patch',
+    url: 'http://localhost:5000/api/partido/confirmar',
+    headers: { 
+      'token': token, 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  return axios(config)
+  .then(function (response) {
+    return response.data
+  })
+  .catch(function (error) {
+    return error.response.data
+  });
+}
+
 export {
   getPartidos,
   addDato,
@@ -193,5 +246,7 @@ export {
   createLista,
   deleteDeLista,
   AddaLista,
-  GenEquipos
+  GenEquipos,
+  cancelPartido,
+  confirmPartido
 };

@@ -28,6 +28,7 @@ function PartidoEquipos({ partido, setPartido}) {
   });
   const [errorGenerate, setErrorGenerate] = useState(null);
   const [errorGetting, setErrorGetting] = useState(null);
+  const [loadings, setLoadings] = useState(false);
 
   useEffect(() => {
     if (
@@ -80,6 +81,7 @@ function PartidoEquipos({ partido, setPartido}) {
   };
 
   const handleGenerate = () => {
+      setLoadings(true)
     GenEquipos(partido._id, values.criterio, values.algoritmo)
       .then((response) => {
         if (response._id) {
@@ -91,11 +93,13 @@ function PartidoEquipos({ partido, setPartido}) {
           console.log("Error", response);
           setErrorGenerate(true);
         }
+        setLoadings(false)
       })
       .catch((error) => {
         console.log("Error", error);
         if (error.error === "token is not valid") navigate("/login");
         setErrorGenerate(true);
+        setLoadings(false)
       });
   };
 
@@ -138,6 +142,10 @@ function PartidoEquipos({ partido, setPartido}) {
     );
   }
 
+  if (partido.lista.length == 0) {
+    return <></>
+  }
+
   if (
     equipos.equipoA.length <= 0 &&
     equipos.equipoB.length <= 0 &&
@@ -177,9 +185,9 @@ function PartidoEquipos({ partido, setPartido}) {
             <FormHelperText>Criterio de escogencia</FormHelperText>
           </FormControl>
         </div>
-        <div className="btn-datos">
-          <button onClick={handleGenerate}> Generar </button>
-        </div>
+        {!loadings ? <div className="btn-datos">
+          <button disabled={loadings} onClick={handleGenerate}> Generar </button>
+        </div>:<></>}
       </div>
     );
   } else if (partido._id) {
