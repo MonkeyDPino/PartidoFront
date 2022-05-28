@@ -1,0 +1,84 @@
+.warning {
+    background: #fff8c4;
+    border: 1px solid #f2c779;
+}
+
+.alert-box span {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.alert-box {
+    color: #555;
+    border-radius: 10px;
+    font-family: Tahoma, Geneva, Arial, sans-serif;
+    font-size: 11px;
+    padding: 10px 10px 10px 36px;
+    margin: 10px;
+}
+
+.caliContainer {
+    padding: 1rem 1rem 1rem 1rem;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items:center;
+}
+
+.caliPart {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 600px) {
+    .caliPart {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .caliContainer {
+        width: auto;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.caliCard {
+    flex: 1;
+    text-align: center;
+    border-radius: 0px;
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.28);
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.28);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    margin-top: 1rem;
+}
+
+.dataField-head{
+    font-size:16px;
+}
+
+.InputsContainer{
+    border-top: 1px solid #000;
+   
+}
+
+.caliInputsContainer{
+    border-top: 1px solid #000;
+    margin-bottom: 1rem;
+}
+
+.caliInputs{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.caliInputs .TextField{
+    margin: 1rem;
+}

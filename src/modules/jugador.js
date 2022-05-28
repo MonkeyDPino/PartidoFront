@@ -79,4 +79,33 @@ const getEquipos = (equipoA,equipoB) => {
     });
 };
 
-export { getJugadores,getJugadoresNotIn,getEquipos };
+const calificar = (idPartido,calificacion,idJugador,idCalificador,comentario) =>{
+  const token = localStorage.getItem("accessToken");
+  var data = JSON.stringify({
+    "idPartido": idPartido,
+    "calificacion": calificacion,
+    "idJugador": idJugador,
+    "idCalificador": idCalificador,
+    "comentario": comentario?comentario:""
+  });
+  
+  var config = {
+    method: 'post',
+    url: 'http://localhost:5000/api/partido/calificaciones',
+    headers: { 
+      'token': token, 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  return axios(config)
+  .then(function (response) {
+    return response.data;
+  })
+  .catch(function (error) {
+    return error.response.data
+  });
+}
+
+export { getJugadores,getJugadoresNotIn,getEquipos,calificar };
