@@ -6,6 +6,7 @@ import Sidebar from "./components/sidebar/sidebar";
 import PartidoMain from "./components/admin/partidoMain"
 import PartidoCreate from "./components/admin/partidoCreate";
 import Calificaciones from "./components/calificaciones/calificaciones";
+import Baja from "./components/darseDeBaja/baja"
 import React from 'react';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/dashboard" element={<><Sidebar rol="Administrador"><PartidoMain/></Sidebar></>} />
           <Route path="/create" element={<><Sidebar rol="Administrador"><PartidoCreate/></Sidebar></>} />
           <Route path="/calificacion" element={<><Sidebar rol="Administrador"><Calificaciones/></Sidebar></>} />
+          <Route path="/baja" element={<><Sidebar rol="Administrador"><Baja/></Sidebar></>} />
         </Routes>
       </BrowserRouter>
   );

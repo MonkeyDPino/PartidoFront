@@ -52,12 +52,12 @@ const getJugadoresNotIn = (ids) => {
     });
 };
 
-const getEquipos = (equipoA,equipoB) => {
+const getEquipos = (equipoA, equipoB) => {
   const token = localStorage.getItem("accessToken");
 
   var data = {
     equipoA: equipoA,
-    equipoB: equipoB
+    equipoB: equipoB,
   };
 
   var config = {
@@ -79,33 +79,65 @@ const getEquipos = (equipoA,equipoB) => {
     });
 };
 
-const calificar = (idPartido,calificacion,idJugador,idCalificador,comentario) =>{
+const calificar = (
+  idPartido,
+  calificacion,
+  idJugador,
+  idCalificador,
+  comentario
+) => {
   const token = localStorage.getItem("accessToken");
   var data = JSON.stringify({
-    "idPartido": idPartido,
-    "calificacion": calificacion,
-    "idJugador": idJugador,
-    "idCalificador": idCalificador,
-    "comentario": comentario?comentario:""
+    idPartido: idPartido,
+    calificacion: calificacion,
+    idJugador: idJugador,
+    idCalificador: idCalificador,
+    comentario: comentario ? comentario : "",
   });
-  
-  var config = {
-    method: 'post',
-    url: 'http://localhost:5000/api/partido/calificaciones',
-    headers: { 
-      'token': token, 
-      'Content-Type': 'application/json'
-    },
-    data : data
-  };
-  
-  return axios(config)
-  .then(function (response) {
-    return response.data;
-  })
-  .catch(function (error) {
-    return error.response.data
-  });
-}
 
-export { getJugadores,getJugadoresNotIn,getEquipos,calificar };
+  var config = {
+    method: "post",
+    url: "http://localhost:5000/api/partido/calificaciones",
+    headers: {
+      token: token,
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+
+  return axios(config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      return error.response.data;
+    });
+};
+
+const darseBaja = (idJugador, idSuplente, idPartido) => {
+  const token = localStorage.getItem("accessToken");
+  var data = JSON.stringify({
+    id: idPartido,
+    suplenteId: idSuplente == "" ? null : idSuplente,
+  });
+
+  var config = {
+    method: "delete",
+    url: "http://localhost:5000/api/jugador/partido?id=" + idJugador,
+    headers: {
+      token: token,
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+
+  return axios(config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      return error.response.data;
+    });
+};
+
+export { getJugadores, getJugadoresNotIn, getEquipos, calificar, darseBaja };

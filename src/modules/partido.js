@@ -180,112 +180,133 @@ const GenEquipos = (idPartido, Criterio, Algoritmo) => {
 
   return axios(config)
     .then(function (response) {
-      return response.data
+      return response.data;
     })
     .catch(function (error) {
-      return error.response.data
+      return error.response.data;
     });
 };
 
-const cancelPartido= (idPartido) =>{
+const cancelPartido = (idPartido) => {
   const token = localStorage.getItem("accessToken");
 
   var data = JSON.stringify({
-    "id": idPartido
+    id: idPartido,
   });
-  
-  var config = {
-    method: 'delete',
-    url: 'http://localhost:5000/api/partido',
-    headers: { 
-      'token': token, 
-      'Content-Type': 'application/json'
-    },
-    data : data
-  };
-  
-  return axios(config)
-  .then(function (response) {
-    return response.data
-  })
-  .catch(function (error) {
-    return error.response.data
-  });
-}
 
-const confirmPartido= (idPartido) =>{
+  var config = {
+    method: "delete",
+    url: "http://localhost:5000/api/partido",
+    headers: {
+      token: token,
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+
+  return axios(config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      return error.response.data;
+    });
+};
+
+const confirmPartido = (idPartido) => {
   const token = localStorage.getItem("accessToken");
 
   var data = JSON.stringify({
-    "id": idPartido
+    id: idPartido,
   });
-  
-  var config = {
-    method: 'patch',
-    url: 'http://localhost:5000/api/partido/confirmar',
-    headers: { 
-      'token': token, 
-      'Content-Type': 'application/json'
-    },
-    data : data
-  };
-  
-  return axios(config)
-  .then(function (response) {
-    return response.data
-  })
-  .catch(function (error) {
-    return error.response.data
-  });
-}
 
-const createPartido= (fecha,lugar) =>{
+  var config = {
+    method: "patch",
+    url: "http://localhost:5000/api/partido/confirmar",
+    headers: {
+      token: token,
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+
+  return axios(config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      return error.response.data;
+    });
+};
+
+const createPartido = (fecha, lugar) => {
   const token = localStorage.getItem("accessToken");
 
   var data = JSON.stringify({
-    "fecha": fecha,
-    "lugar": lugar
+    fecha: fecha,
+    lugar: lugar,
   });
-  
-  var config = {
-    method: 'post',
-    url: 'http://localhost:5000/api/partido',
-    headers: { 
-      'token': token, 
-      'Content-Type': 'application/json'
-    },
-    data : data
-  };
-  
-  return axios(config)
-  .then(function (response) {
-    return response.data
-  })
-  .catch(function (error) {
-    return error.response.data
-  });
-}
 
-const getPartidosJug = (idJugador)=>{
+  var config = {
+    method: "post",
+    url: "http://localhost:5000/api/partido",
+    headers: {
+      token: token,
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+
+  return axios(config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      return error.response.data;
+    });
+};
+
+const getPartidosJug = (idJugador) => {
   const token = localStorage.getItem("accessToken");
 
   var config = {
-    method: 'get',
-    url: 'http://localhost:5000/api/partido/partido/'+idJugador,
-    headers: { 
-      'token': token,
-      'Content-Type': 'application/json'
-    }
+    method: "get",
+    url: "http://localhost:5000/api/partido/partido/" + idJugador,
+    headers: {
+      token: token,
+      "Content-Type": "application/json",
+    },
   };
-  
+
   return axios(config)
-  .then(function (response) {
-    return response.data
-  })
-  .catch(function (error) {
-    return error.response.data
-  });
-}
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      return error.response.data;
+    });
+};
+
+const getPartidosBaja = (idJugador) => {
+  const token = localStorage.getItem("accessToken");
+
+  var config = {
+    method: "get",
+    url: "http://localhost:5000/api/partido/baja/" + idJugador,
+    headers: {
+      token: token,
+      "Content-Type": "application/json",
+    },
+  };
+
+  return axios(config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      return error.response.data;
+    });
+};
 
 export {
   getPartidos,
@@ -298,5 +319,6 @@ export {
   cancelPartido,
   confirmPartido,
   createPartido,
-  getPartidosJug
+  getPartidosJug,
+  getPartidosBaja
 };
