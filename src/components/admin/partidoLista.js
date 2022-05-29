@@ -164,8 +164,8 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
                     {user.nombre}
                   </TableCell>
                   <TableCell align="right">{user.correo}</TableCell>
-                  <TableCell align="right">{user.promedioGlobal}</TableCell>
-                  <TableCell align="right">{user.promedioLastMatch}</TableCell>
+                  <TableCell align="right">{user.promedioGlobal.toFixed(2)}</TableCell>
+                  <TableCell align="right">{user.promedioLastMatch.toFixed(2)}</TableCell>
                   <TableCell align="right">{user.tipo}</TableCell>
                 </ListaRow>
               ))}
@@ -211,8 +211,8 @@ function PartidoLista({ partido, setPartido, actualizarPartido }) {
                     {user.nombre}
                   </TableCell>
                   <TableCell align="right">{user.correo}</TableCell>
-                  <TableCell align="right">{user.promedioGlobal}</TableCell>
-                  <TableCell align="right">{user.promedioLastMatch}</TableCell>
+                  <TableCell align="right">{user.promedioGlobal.toFixed(2)}</TableCell>
+                  <TableCell align="right">{user.promedioLastMatch.toFixed(2)}</TableCell>
                   <TableCell align="right">{user.tipo}</TableCell>
                 </OutRow>
               ))}

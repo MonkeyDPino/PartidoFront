@@ -11,7 +11,9 @@ function Calificaciones() {
   const [values, setValues] = useState({});
   const navigate = useNavigate();
 
-  useEffect(() => {getInfo()}, []);
+  useEffect(() => {
+    getInfo();
+  }, []);
 
   const getInfo = () => {
     const id = localStorage.getItem("id");
@@ -46,6 +48,10 @@ function Calificaciones() {
 
   const handleCalificar = (idPartido, idJugador) => {
     const id = localStorage.getItem("id");
+    if (!values[idJugador]) {
+      setErrorCal(true);
+      return;
+    }
     calificar(
       idPartido,
       values[idJugador]["calificacion"],
@@ -55,7 +61,7 @@ function Calificaciones() {
     )
       .then((response) => {
         if (response._id) {
-          getInfo()
+          getInfo();
           setErrorCal(false);
         } else {
           if (response.error === "token is not valid") navigate("/login");
@@ -75,7 +81,6 @@ function Calificaciones() {
       return <div className="error">Error al calificar jugador</div>;
     }
   };
-
 
   if (partidos.length <= 0) {
     return (
@@ -114,12 +119,12 @@ function Calificaciones() {
                       <h6 className="dataField">{"Nombre:\t" + user.nombre}</h6>
                       <h6 className="dataField">{"Correo:" + user.correo}</h6>
                       <h6 className="dataField">
-                        {"Promedio Global:" + user.promedioGlobal}
+                        {"Promedio Global:" + user.promedioGlobal.toFixed(2)}
                       </h6>
                     </div>
                     <div className="caliInputs">
                       <TextField
-                      className="TextField"
+                        className="TextField"
                         label="Calificación"
                         type="number"
                         name="calificacion"
@@ -131,7 +136,7 @@ function Calificaciones() {
                         onChange={(e) => handleChange(e, user._id)}
                       />
                       <TextField
-                      className="TextField"
+                        className="TextField"
                         label="Comentario"
                         name="comentario"
                         onChange={(e) => handleChange(e, user._id)}

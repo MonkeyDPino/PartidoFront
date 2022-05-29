@@ -55,19 +55,24 @@ export const SidebarItems ={
       ],
       Administrador: [
         {
-          title: "Actualizar Perfil",
+          title: "Dashboard",
           // icon: <AiOutlineHome />,
-          link: "/updateProfile",
+          link: "/dashboard",
         },
         {
-          title: "Gestion Usuarios",
+          title: "Darse de Baja",
           // icon: <TiDocumentText />,
-          link: "/userManagement",
+          link: "/baja",
         },
         {
-          title: "Gestion Usuarios",
+          title: "Crear Partido",
           // icon: <TiDocumentText />,
-          link: "/userManagement",
+          link: "/create",
+        },
+        {
+          title: "Calificaciones",
+          // icon: <TiDocumentText />,
+          link: "/calificacion",
         }
       ],
     };
