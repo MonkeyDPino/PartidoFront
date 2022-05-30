@@ -118,7 +118,7 @@ const darseBaja = (idJugador, idSuplente, idPartido) => {
   const token = localStorage.getItem("accessToken");
   var data = JSON.stringify({
     id: idPartido,
-    suplenteId: idSuplente == "" ? null : idSuplente,
+    suplenteId: idSuplente === "" ? null : idSuplente,
   });
 
   var config = {

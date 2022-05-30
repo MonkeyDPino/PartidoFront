@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NotFound from "./components/NotFound";
+import { Navigate } from "react-router-dom";
 import Login from "./components/login/Login";
 import Registro from "./components/register/register";
 import Sidebar from "./components/sidebar/sidebar";
@@ -9,20 +9,18 @@ import Calificaciones from "./components/calificaciones/calificaciones";
 import Baja from "./components/darseDeBaja/baja";
 import MisCalificaciones from "./components/misCalificaciones/misCalificaciones";
 import React from "react";
+import ProtectedRoute from "./components/protectedRoute"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/" />} />
         <Route
           path="/"
           element={
-            <>
-              <Sidebar rol="Administrador">
-                <PartidoMain />
-              </Sidebar>
-            </>
+            <ProtectedRoute redirectTo ="yes">
+            </ProtectedRoute>
           }
         />
         <Route path="/login" element={<Login />} />
@@ -30,51 +28,51 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <>
-              <Sidebar rol="Administrador">
+            <ProtectedRoute isAdmin = "1">
+              <Sidebar>
                 <PartidoMain />
               </Sidebar>
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/create"
           element={
-            <>
+            <ProtectedRoute isAdmin = "1">
               <Sidebar rol="Administrador">
                 <PartidoCreate />
               </Sidebar>
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/calificacion"
           element={
-            <>
+            <ProtectedRoute isAdmin = "">
               <Sidebar rol="Administrador">
                 <Calificaciones />
               </Sidebar>
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/baja"
           element={
-            <>
+            <ProtectedRoute isAdmin = "">
               <Sidebar rol="Administrador">
                 <Baja />
               </Sidebar>
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/miscalificaciones"
           element={
-            <>
+            <ProtectedRoute isAdmin = "">
               <Sidebar rol="Administrador">
                 <MisCalificaciones />
               </Sidebar>
-            </>
+            </ProtectedRoute>
           }
         />
       </Routes>

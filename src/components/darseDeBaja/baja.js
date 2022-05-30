@@ -28,7 +28,6 @@ function Baja() {
     darseBaja(id, suplente, values.partido._id)
       .then((res) => {
         if (!res.error && res.partidoActualizado) {
-          navigate("/");
           if (errorBaja) setErrorBaja(false);
         } else {
           console.log(res);

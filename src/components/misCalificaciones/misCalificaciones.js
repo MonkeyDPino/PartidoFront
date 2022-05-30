@@ -36,6 +36,8 @@ function MisCalificaciones() {
         if (err.error === "token is not valid") navigate("/login");
         console.log(err);
       });
+      
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (errorGet) {
@@ -62,7 +64,7 @@ function MisCalificaciones() {
       <h4>Tus Calificaciones</h4>
       <div className="flexCalis">
         {calis.map((cal) => (
-          <div className="miscalisCard">
+          <div className="miscalisCard" key = {cal.cali._id}>
             <div className="miscalisDataShow">
               <label className="miscalisHead">
                 {"El jugador " +
@@ -76,7 +78,7 @@ function MisCalificaciones() {
               <label className="miscalisData">{"Nota: " + cal.cali.num}</label>
               {cal.cali.comentario !== "" ? (
                 <label className="miscalisData">
-                  {"Comentario: " + cal.cali.num}
+                  {"Comentario: " + cal.cali.comentario}
                 </label>
               ) : (
                 <></>
