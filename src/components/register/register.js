@@ -23,20 +23,33 @@ function Registro() {
   });
   const [showPassword,setShowPassword] = React.useState(false)
   const [registered,setRegistered] = React.useState(false)
+  const [regError,setRegError] = React.useState(false)
 
   const handleChange =(event) => {
       console.log(event.target.value)
     setValues({ ...values, [event.target.name]: event.target.value });
   };
   const registrarUser = () => {
-    handleRegister(values.nombre,values.email,values.contrasena).then((user)=>{
-      if(user.error){
-        console.log(user.error)
-      }else{
+    handleRegister(values.nombre,values.email,values.contrasena)
+    .then((response) => {
+      if (response._id) {
         setRegistered(true)
+      } else {
+        console.log("Error", response);
+        setRegError(true);
       }
     })
+    .catch((error) => {
+      console.log("Error", error);
+      setRegError(true);
+    });
   }
+
+  const showErrorReg = () => {
+    if (regError) {
+      return <div className="error">Error al registrarse</div>;
+    }
+  };
 
   if (registered) {
       return <Navigate to="/login" />
@@ -89,6 +102,7 @@ function Registro() {
               label="Password"
             />
           </FormControl>
+          {showErrorReg()}
           <div className="btn-registrarse">
             <button onClick={registrarUser}>Registrarse</button>
           </div>

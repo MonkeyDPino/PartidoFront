@@ -73,6 +73,11 @@ export const SidebarItems ={
           title: "Calificaciones",
           // icon: <TiDocumentText />,
           link: "/calificacion",
+        },
+        {
+          title: "Mis Calificaciones",
+          // icon: <TiDocumentText />,
+          link: "/miscalificaciones",
         }
       ],
     };
