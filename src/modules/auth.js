@@ -1,5 +1,6 @@
 import axios from "axios"
 import jwt from "jsonwebtoken"
+const backURI = "https://app-partido-back.herokuapp.com"
 
 const handleLogin = (email, password) => {
   var data = JSON.stringify({
@@ -9,7 +10,7 @@ const handleLogin = (email, password) => {
 
   var config = {
     method: "post",
-    url: "http://localhost:5000/api/auth/login",
+    url:  backURI+"/api/auth/login",
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
@@ -36,7 +37,7 @@ const handleRegister = (nombre,email,contrasena) => {
   
   var config = {
     method: 'post',
-    url: 'http://localhost:5000/api/auth/register',
+    url:  backURI+'/api/auth/register',
     headers: { 
       'Content-Type': 'application/json'
     },

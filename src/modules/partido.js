@@ -37,7 +37,7 @@ const addDato = (llave, valor, id) => {
   });
   var config = {
     method: "post",
-    url: "http://localhost:5000/api/partido/dato",
+    url: backURI+"/api/partido/dato",
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const deleteDato = (idPartido, idDatos) => {
 
   var config = {
     method: "delete",
-    url: "http://localhost:5000/api/partido/dato",
+    url: backURI+"/api/partido/dato",
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -91,7 +91,7 @@ const createLista = (id) => {
 
   var config = {
     method: "post",
-    url: "http://localhost:5000/api/partido/lista",
+    url: backURI+"/api/partido/lista",
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -117,7 +117,7 @@ const deleteDeLista = (idPartido, idJugador) => {
 
   var config = {
     method: "delete",
-    url: "http://localhost:5000/api/partido/lista/" + idJugador,
+    url: backURI+"/api/partido/lista/" + idJugador,
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -143,7 +143,7 @@ const AddaLista = (idPartido, idJugador) => {
 
   var config = {
     method: "patch",
-    url: "http://localhost:5000/api/partido/lista/" + idJugador,
+    url: backURI+"/api/partido/lista/" + idJugador,
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -171,7 +171,7 @@ const GenEquipos = (idPartido, Criterio, Algoritmo) => {
 
   var config = {
     method: "post",
-    url: "http://localhost:5000/api/partido/equipos",
+    url: backURI+"/api/partido/equipos",
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -197,7 +197,7 @@ const cancelPartido = (idPartido) => {
 
   var config = {
     method: "delete",
-    url: "http://localhost:5000/api/partido",
+    url: backURI+"/api/partido",
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -223,7 +223,7 @@ const confirmPartido = (idPartido) => {
 
   var config = {
     method: "patch",
-    url: "http://localhost:5000/api/partido/confirmar",
+    url: backURI+"/api/partido/confirmar",
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -250,7 +250,7 @@ const createPartido = (fecha, lugar) => {
 
   var config = {
     method: "post",
-    url: "http://localhost:5000/api/partido",
+    url: backURI+"/api/partido",
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -272,7 +272,7 @@ const getPartidosJug = (idJugador) => {
 
   var config = {
     method: "get",
-    url: "http://localhost:5000/api/partido/partido/" + idJugador,
+    url: backURI+"/api/partido/partido/" + idJugador,
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -293,7 +293,7 @@ const getPartidosBaja = (idJugador) => {
 
   var config = {
     method: "get",
-    url: "http://localhost:5000/api/partido/baja/" + idJugador,
+    url: backURI+"/api/partido/baja/" + idJugador,
     headers: {
       token: token,
       "Content-Type": "application/json",

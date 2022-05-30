@@ -1,4 +1,5 @@
 import axios from "axios";
+const backURI = "https://app-partido-back.herokuapp.com"
 
 const getJugadores = (ids) => {
   const token = localStorage.getItem("accessToken");
@@ -9,7 +10,7 @@ const getJugadores = (ids) => {
 
   var config = {
     method: "patch",
-    url: "http://localhost:5000/api/jugador/jugadores",
+    url: backURI+"/api/jugador/jugadores",
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -35,7 +36,7 @@ const getJugadoresNotIn = (ids) => {
 
   var config = {
     method: "delete",
-    url: "http://localhost:5000/api/jugador/jugadores",
+    url: backURI+"/api/jugador/jugadores",
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -62,7 +63,7 @@ const getEquipos = (equipoA, equipoB) => {
 
   var config = {
     method: "patch",
-    url: "http://localhost:5000/api/jugador/jugadores",
+    url: backURI+"/api/jugador/jugadores",
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -97,7 +98,7 @@ const calificar = (
 
   var config = {
     method: "post",
-    url: "http://localhost:5000/api/partido/calificaciones",
+    url: backURI+"/api/partido/calificaciones",
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -123,7 +124,7 @@ const darseBaja = (idJugador, idSuplente, idPartido) => {
 
   var config = {
     method: "delete",
-    url: "http://localhost:5000/api/jugador/partido?id=" + idJugador,
+    url: backURI+"/api/jugador/partido?id=" + idJugador,
     headers: {
       token: token,
       "Content-Type": "application/json",
@@ -145,7 +146,7 @@ const getMisCalis = (idJugador) =>{
 
   var config = {
     method: 'get',
-    url: 'http://localhost:5000/api/partido/calificaciones?id='+idJugador,
+    url: backURI+'/api/partido/calificaciones?id='+idJugador,
     headers: { 
       'token': token
     }
