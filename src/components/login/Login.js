@@ -40,6 +40,7 @@ function Login() {
         }, tokenInfo.exp * 1000 - tokenInfo.iat * 1000);
         changeLogin(true)
       }else{
+        console.log(response)
         changeLogin(false)
         setErrorMessage(response.error)
       }

@@ -1,5 +1,5 @@
 import axios from "axios"
-import jwt from "jsonwebtoken"
+import jwt_decode from "jwt-decode";
 const backURI = "https://app-partido-back.herokuapp.com"
 
 const handleLogin = (email, password) => {
@@ -20,7 +20,7 @@ const handleLogin = (email, password) => {
 
   return axios(config)
     .then((response) => {
-      const tokenInfo = jwt.decode(response.data.accessToken, "partido")
+      const tokenInfo = jwt_decode(response.data.accessToken)
       return {data: JSON.stringify(response.data),tokenInfo,accessToken: response.data.accessToken};
     })
     .catch(function (error) {
@@ -54,7 +54,7 @@ const handleRegister = (nombre,email,contrasena) => {
 }
 
 const validateToken = (token) => {
-  const tokenInfo = jwt.decode(token, "partido")
+  const tokenInfo = jwt_decode(token)
   if(!tokenInfo.rol) return false;
   return true;
 }
