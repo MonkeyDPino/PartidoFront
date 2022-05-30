@@ -82,6 +82,14 @@ function Calificaciones() {
     }
   };
 
+  if (errorGet) {
+    return (
+      <div>
+        <div className="error">Error al Conseguir Calificaciones</div>
+      </div>
+    );
+  }
+
   if (partidos.length <= 0) {
     return (
       <div>

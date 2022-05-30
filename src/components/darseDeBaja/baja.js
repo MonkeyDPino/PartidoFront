@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -93,8 +92,6 @@ function Baja() {
       return <div className="error">Error al darse de baja</div>;
     }
   };
-
-  //todo CAMBIAR LISTA TAMBIÉN EN LA PETICIÓN
 
   return (
     <div className="create-form-container">

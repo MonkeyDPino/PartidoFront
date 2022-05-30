@@ -140,4 +140,25 @@ const darseBaja = (idJugador, idSuplente, idPartido) => {
     });
 };
 
-export { getJugadores, getJugadoresNotIn, getEquipos, calificar, darseBaja };
+const getMisCalis = (idJugador) =>{
+  const token = localStorage.getItem("accessToken");
+
+  var config = {
+    method: 'get',
+    url: 'http://localhost:5000/api/partido/calificaciones?id='+idJugador,
+    headers: { 
+      'token': token
+    }
+  };
+  
+  return axios(config)
+  .then(function (response) {
+    return response.data;
+  })
+  .catch(function (error) {
+    return error.response.data
+  });
+
+}
+
+export { getMisCalis,getJugadores, getJugadoresNotIn, getEquipos, calificar, darseBaja };

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { validateToken } from "./auth";
+const backURI = "https://app-partido-back.herokuapp.com"
 
 const getPartidos = () => {
   const token = localStorage.getItem("accessToken");
@@ -11,7 +12,7 @@ const getPartidos = () => {
 
   var config = {
     method: "get",
-    url: "http://localhost:5000/api/partido",
+    url: backURI+"/api/partido",
     headers: {
       token: token,
     },
